@@ -10,8 +10,10 @@ def runconnection(connection_id):
     s.close()
     return data
 
+def main():
+    if len(sys.argv) == 1:
+        raise Exception("Not Enough Arguments.")
 
-if __name__=='__main__':
     num_connections = int(sys.argv[1])
     jobs = [gevent.Greenlet(runconnection, connid) for connid in range(num_connections)]
     for job in jobs:
@@ -21,4 +23,7 @@ if __name__=='__main__':
     for job in jobs:
         total += int(job.value)
     print(str(total))
+
+if __name__=='__main__':
+    main()
 
